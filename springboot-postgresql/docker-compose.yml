@@ -1,0 +1,25 @@
+version: '3'
+
+services:
+  spingboot-app:
+    build: ./target/docker/springboot-postgres/build
+    ports:
+      - 8082:8082
+    environment:
+      - DB_POSTGRESQL_HOST=jdbc:postgresql://postgres
+      - DB_POSTGRESQL_PORT=5432
+      - DB_NAME=springboot
+      - DB_POSTGRESQL_USERNAME=seynmanx
+      - DB_POSTGRESQL_PASSWORD=seynmanx
+    depends_on:
+      - postgres
+
+  postgres:
+    image: frodenas/postgresql
+    ports:   
+      - 5432:5432 
+    environment:
+     - POSTGRES_USERNAME=seynmanx
+     - POSTGRES_PASSWORD=seynmanx
+     - POSTGRES_DBNAME=springboot
+     - POSTGRES_EXTENSIONS=citext
